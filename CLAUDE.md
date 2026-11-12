@@ -6,12 +6,12 @@ Idioma do projeto: português do Brasil em respostas, comentários, docstrings, 
 
 ## Estado atual
 
-Fase 0 (planejamento) concluída, aguardando aprovação. Nenhum código de aplicação existe ainda. Atualize esta seção ao fim de cada fase.
+Fase 1 concluída, aguardando validação. Atualize esta seção ao fim de cada fase.
 
 | Fase | Entrega | Estado |
 |------|---------|--------|
-| 0 | Planejamento e este `CLAUDE.md` | aguardando aprovação |
-| 1 | Estrutura, configuração, modelo de processo e arquivos, ingestão (upload múltiplo e ZIP seguro), extração com marcadores, planilhas, mascaramento, testes | pendente |
+| 0 | Planejamento e este `CLAUDE.md` | aprovada |
+| 1 | Estrutura, configuração, modelo de processo e arquivos, ingestão (upload múltiplo e ZIP seguro), extração com marcadores, planilhas, mascaramento, testes | aguardando validação |
 | 2 | Catálogo em duas camadas (Módulo C), perfis de documento, schemas Pydantic | pendente |
 | 3 | Análise de edital (Módulo A): regime, análise em etapas, verificação de origem, cache, exportação | pendente |
 | 4 | Geração de TR (Módulo B): perfis, espelhamento, ETP, neutralidade, template DOCX | pendente |
@@ -96,6 +96,7 @@ Fora do escopo da v1 (mas a arquitetura não pode impedir): habilitação juríd
 │   │   ├── config.py           # Settings (pydantic-settings), limites, caminhos
 │   │   ├── erros.py            # exceções de domínio com mensagem amigável
 │   │   ├── logs.py
+│   │   ├── processos.py        # fachada de serviço do processo
 │   │   ├── bd/                 # modelos SQLAlchemy, sessão, repositórios
 │   │   ├── esquemas/           # schemas Pydantic (análise, minuta, catálogo, perfil)
 │   │   ├── ingestao/           # fontes.py (interface), validacao.py, zip_seguro.py,
@@ -128,7 +129,7 @@ Fora do escopo da v1 (mas a arquitetura não pode impedir): habilitação juríd
 ### Extração e marcadores
 
 - O texto é extraído e gravado **por página** (tabela `paginas`: arquivo, número, aba, texto mascarado, método `texto` ou `ocr`). Para planilhas, a "página" é a aba e cada linha leva seu número.
-- Marcadores no texto enviado ao modelo: `[[PAGINA n]]` para PDF/DOCX; `[[ABA "nome" LINHA n]]` para planilhas. DOCX não tem página física confiável: usa-se quebra de página explícita quando houver e, na falta, numeração por bloco, registrada como tal na origem.
+- Marcadores no texto enviado ao modelo: `[[PAGINA n]]` para PDF/DOCX; `[[BLOCO n]]` para DOCX sem quebras de página; `[[ABA "nome" LINHA n]]` para planilhas. Qualquer `[[` ou `]]` vindo do documento é neutralizado. DOCX não tem página física confiável: usa-se quebra de página explícita quando houver e, na falta, numeração por bloco, registrada como tal na origem.
 - OCR só como fallback, por página, quando o texto nativo vier vazio ou abaixo de um limiar de caracteres.
 - Tabelas de PDF são extraídas com `page.find_tables()` e anexadas ao texto da página em formato linha a linha.
 
@@ -137,7 +138,7 @@ Fora do escopo da v1 (mas a arquitetura não pode impedir): habilitação juríd
 - Ordem obrigatória: extrair -> **mascarar** -> gravar no banco -> enviar à API. Não existe caminho de código que grave ou envie texto não mascarado. O original fica apenas em `dados/originais/`.
 - Mascarados por regex: CPF, RG, e-mail, telefone, dados bancários. Substituição por rótulo fixo (`[CPF]`, `[RG]`, `[EMAIL]`, `[TELEFONE]`, `[DADOS_BANCARIOS]`).
 - **Não** mascarados: CNPJ e nomes de pessoas.
-- Padrões conservadores para não destruir dado técnico: CPF exige dígitos verificadores válidos; RG e dados bancários exigem palavra de contexto próxima ("RG", "agência", "conta", "PIX"); telefone exige formato com DDD. A regra de CNPJ é avaliada antes da de CPF.
+- Padrões conservadores para não destruir dado técnico: CPF no formato `000.000.000-00` ou precedido da palavra "CPF" é sempre mascarado, e onze dígitos corridos só com dígitos verificadores válidos; RG e dados bancários exigem palavra de contexto próxima ("RG", "agência", "conta", "PIX"); telefone exige formato com DDD. A regra de CNPJ é avaliada antes da de CPF.
 - A verificação de trecho literal roda contra o mesmo texto mascarado enviado ao modelo.
 
 ### LLM
@@ -215,7 +216,9 @@ Alvo de edição: **Google Docs**. Evitar o que se perde na conversão.
 - Docstrings em todas as funções, classes e métodos públicos. Type hints em todo o código.
 - Comentários explicam o porquê, não o quê.
 - Funções do núcleo recebem dependências (sessão de banco, cliente LLM, configurações) por parâmetro; nada de estado global.
-- Exceções de domínio herdam de `ErroEditalLab` e carregam `mensagem_usuario`.
+- Exceções de domínio herdam de `ErroEditalLab` e carregam `mensagem_usuario`. `str(exc)` devolve a mensagem amigável; o detalhe técnico fica em `.detalhe` e vai só para o log.
+- `extracao.preparar_paginas` é o único ponto de entrada para obter texto de um arquivo, e já devolve o texto mascarado. Não chame os extratores diretamente fora de testes.
+- `core/processos.py` é a fachada de serviço que a UI usa (criar processo, adicionar arquivos, confirmar tipo, extrair pendentes).
 - Enums de domínio (`TipoArquivo`, `RegimeJuridico`, `StatusAderencia`, `StatusVerificacao`) definidos uma única vez em `core/esquemas/`.
 
 ## Testes
