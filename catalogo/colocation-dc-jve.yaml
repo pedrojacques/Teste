@@ -1,0 +1,32 @@
+# ITEM FICTÍCIO DE EXEMPLO. Substitua pelos dados reais.
+id: colocation-dc-jve
+nome: Hospedagem de equipamentos em datacenter (colocation)
+categoria: servico
+neutra:
+  descricao_funcional: >-
+    Hospedagem de equipamentos do contratante em datacenter, com energia redundante,
+    climatização de precisão, controle de acesso físico e conectividade.
+  requisitos_minimos:
+    - parametro: Espaço
+      valor_minimo: rack padrão 19 polegadas de 44U, inteiro ou fracionado
+    - parametro: Energia
+      valor_minimo: no mínimo 2 circuitos independentes por rack, com grupo gerador
+    - parametro: Climatização
+      valor_minimo: redundância mínima N+1
+    - parametro: Segurança física
+      valor_minimo: controle de acesso individualizado e monitoramento por vídeo 24x7
+  slas_praticaveis:
+    - indicador: Disponibilidade de energia
+      valor: até 99,98% ao mês
+    - indicador: Atendimento a chamados de mãos remotas
+      valor: início em até 30 minutos, 24x7
+  textos_padrao:
+    - >-
+      O datacenter deverá dispor de alimentação elétrica por, no mínimo, 2 (dois)
+      circuitos independentes por rack, com grupo gerador, e climatização com
+      redundância mínima N+1.
+interna:
+  outros_termos_restritos:
+    - DC JVE
+    - Sala Cofre Norte
+  observacoes: Localização, sala e capacidade real são dados internos (fictícios aqui).

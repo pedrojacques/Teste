@@ -1,0 +1,28 @@
+# ITEM FICTÍCIO DE EXEMPLO. Substitua pelos dados reais.
+id: switch-acesso
+nome: Switch de acesso gerenciável
+categoria: equipamento
+neutra:
+  descricao_funcional: >-
+    Switch de camada 2 gerenciável para distribuição da rede local nas unidades,
+    com alimentação elétrica pelo cabo de rede para dispositivos conectados.
+  requisitos_minimos:
+    - parametro: Portas de acesso
+      valor_minimo: no mínimo 24 portas Gigabit Ethernet
+    - parametro: Portas de uplink
+      valor_minimo: no mínimo 4 portas SFP+ de 10 Gbps
+    - parametro: Alimentação pelo cabo de rede
+      valor_minimo: padrão IEEE 802.3at, com no mínimo 370 W disponíveis
+    - parametro: Segmentação
+      valor_minimo: no mínimo 1.000 VLANs ativas (IEEE 802.1Q)
+  textos_padrao:
+    - >-
+      Switch gerenciável com no mínimo 24 (vinte e quatro) portas Gigabit Ethernet e
+      4 (quatro) portas de uplink de 10 Gbps, compatível com o padrão IEEE 802.3at.
+interna:
+  fabricante: Lumenar Sistemas
+  modelo: LS-2428P
+  part_numbers:
+    - LS-2428P-370W
+  outros_termos_restritos:
+    - Lumenar

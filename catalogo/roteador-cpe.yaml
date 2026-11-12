@@ -1,0 +1,36 @@
+# ITEM FICTÍCIO DE EXEMPLO. Substitua pelos dados reais.
+id: roteador-cpe
+nome: Roteador de acesso (CPE) em comodato
+categoria: equipamento
+neutra:
+  descricao_funcional: >-
+    Roteador instalado nas dependências do contratante, fornecido em comodato, que
+    termina o acesso e entrega a rede local, com gerência remota pela contratada.
+  requisitos_minimos:
+    - parametro: Interfaces WAN
+      valor_minimo: no mínimo 2 portas, sendo ao menos 1 óptica (SFP)
+    - parametro: Interfaces LAN
+      valor_minimo: no mínimo 4 portas Gigabit Ethernet
+    - parametro: Capacidade de encaminhamento
+      valor_minimo: igual ou superior à banda contratada com os serviços ativos
+    - parametro: Protocolos de roteamento
+      valor_minimo: BGP, OSPF e roteamento estático
+    - parametro: Gerência
+      valor_minimo: SNMPv3 e exportação de fluxos
+  slas_praticaveis:
+    - indicador: Substituição em caso de defeito
+      valor: até 6 horas em área urbana
+  textos_padrao:
+    - >-
+      A contratada deverá fornecer, em regime de comodato, roteador com no mínimo 2
+      (duas) interfaces WAN e 4 (quatro) interfaces LAN Gigabit Ethernet, com
+      capacidade de encaminhamento igual ou superior à banda contratada.
+interna:
+  fabricante: Vetrion Networks
+  modelo: VTR-4100
+  part_numbers:
+    - VTR-4100-2S4G
+    - VTR-4100-PSU-AC
+  outros_termos_restritos:
+    - Vetrion
+    - VetriOS

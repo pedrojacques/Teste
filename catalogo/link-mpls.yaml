@@ -1,0 +1,39 @@
+# ITEM FICTÍCIO DE EXEMPLO. Substitua pelos dados reais.
+id: link-mpls
+nome: Acesso dedicado à rede corporativa MPLS
+categoria: servico
+neutra:
+  descricao_funcional: >-
+    Acesso dedicado, simétrico e com banda garantida a uma rede privativa MPLS, com
+    classes de serviço para priorização de tráfego e monitoramento contínuo.
+  requisitos_minimos:
+    - parametro: Banda
+      valor_minimo: de 10 Mbps a 1 Gbps por ponto, simétrica e com garantia de 100%
+    - parametro: Classes de serviço
+      valor_minimo: no mínimo 4 classes (voz, vídeo, dados críticos, melhor esforço)
+    - parametro: Meio de acesso
+      valor_minimo: fibra óptica até as dependências do contratante
+    - parametro: Prazo de instalação
+      valor_minimo: no mínimo 45 dias corridos por ponto
+      observacao: Pontos sem rede própria podem exigir prazo maior.
+  slas_praticaveis:
+    - indicador: Disponibilidade mensal
+      valor: até 99,7% com acesso simples; até 99,9% com dupla abordagem
+    - indicador: Latência até o concentrador
+      valor: até 30 ms na mesma região
+    - indicador: Perda de pacotes
+      valor: até 0,5%
+    - indicador: Prazo de reparo
+      valor: até 6 horas em área urbana
+  textos_padrao:
+    - >-
+      O serviço deverá ser prestado por meio de acesso dedicado e simétrico, com
+      garantia de 100% da banda contratada, em rede privativa com suporte a, no
+      mínimo, 4 (quatro) classes de serviço.
+interna:
+  fabricante: Vetrion Networks
+  modelo: Backbone VTR-Core
+  outros_termos_restritos:
+    - Vetrion
+    - ConectaMais Corporativo
+  observacoes: Nome comercial interno e fornecedor de núcleo fictícios.

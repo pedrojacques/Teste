@@ -47,6 +47,7 @@ dependencies = [
     { name = "pymupdf" },
     { name = "pytesseract" },
     { name = "python-docx" },
+    { name = "pyyaml" },
     { name = "sqlalchemy" },
 ]
 
@@ -66,6 +67,7 @@ requires-dist = [
     { name = "pymupdf", specifier = ">=1.24" },
     { name = "pytesseract", specifier = ">=0.3.10" },
     { name = "python-docx", specifier = ">=1.1" },
+    { name = "pyyaml", specifier = ">=6.0.3" },
     { name = "sqlalchemy", specifier = ">=2.0" },
 ]
 
