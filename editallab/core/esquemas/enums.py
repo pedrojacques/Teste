@@ -44,3 +44,39 @@ class TipoMarcador(StrEnum):
     PAGINA = "pagina"
     BLOCO = "bloco"
     ABA = "aba"
+
+
+class StatusVerificacao(StrEnum):
+    """Resultado da conferência do trecho literal contra a página citada."""
+
+    PENDENTE = "pendente"
+    VERIFICADO = "verificado"
+    NAO_VERIFICADO = "nao_verificado"
+
+
+class StatusAderencia(StrEnum):
+    """Aderência de um requisito do edital ao portfólio."""
+
+    ATENDE = "atende"
+    ATENDE_COM_RESSALVA = "atende_com_ressalva"
+    NAO_ATENDE = "nao_atende"
+    NAO_AVALIADO = "nao_avaliado"
+
+
+class CategoriaItem(StrEnum):
+    """Natureza de um item do catálogo técnico."""
+
+    SERVICO = "servico"
+    EQUIPAMENTO = "equipamento"
+
+
+class PapelSecao(StrEnum):
+    """Tratamento especial que o motor de geração dá a uma seção do perfil."""
+
+    GERAL = "geral"
+    # Recebe a referência ao ETP ou, na falta, marcador de preenchimento pelo órgão.
+    FUNDAMENTACAO = "fundamentacao"
+    # Sempre campo para preenchimento: o modelo nunca escreve valores.
+    ESTIMATIVA_VALOR = "estimativa_valor"
+    # Conteúdo que só o órgão ou cliente pode fornecer; sai como marcador.
+    PREENCHIMENTO_ORGAO = "preenchimento_orgao"

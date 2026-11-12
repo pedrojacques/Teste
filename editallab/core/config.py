@@ -19,6 +19,8 @@ class Configuracoes(BaseSettings):
     )
 
     dir_dados: Path = Path("dados")
+    dir_catalogo: Path = RAIZ_PROJETO / "catalogo"
+    dir_perfis: Path = RAIZ_PROJETO / "perfis"
     max_tamanho_arquivo_mb: int = Field(default=50, gt=0)
     zip_max_descompactado_mb: int = Field(default=200, gt=0)
     zip_max_arquivos: int = Field(default=200, gt=0)

@@ -30,3 +30,11 @@ class ErroExtracao(ErroEditalLab):
 
 class OcrIndisponivel(ErroEditalLab):
     """O Tesseract (ou o idioma configurado) não está instalado nesta máquina."""
+
+
+class ErroCatalogo(ErroEditalLab):
+    """Arquivo do catálogo técnico inválido."""
+
+
+class ErroPerfil(ErroEditalLab):
+    """Perfil de documento inválido ou inexistente."""

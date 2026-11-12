@@ -6,13 +6,13 @@ Idioma do projeto: português do Brasil em respostas, comentários, docstrings, 
 
 ## Estado atual
 
-Fase 1 concluída, aguardando validação. Atualize esta seção ao fim de cada fase.
+Fase 2 concluída, aguardando validação. Atualize esta seção ao fim de cada fase.
 
 | Fase | Entrega | Estado |
 |------|---------|--------|
 | 0 | Planejamento e este `CLAUDE.md` | aprovada |
-| 1 | Estrutura, configuração, modelo de processo e arquivos, ingestão (upload múltiplo e ZIP seguro), extração com marcadores, planilhas, mascaramento, testes | aguardando validação |
-| 2 | Catálogo em duas camadas (Módulo C), perfis de documento, schemas Pydantic | pendente |
+| 1 | Estrutura, configuração, modelo de processo e arquivos, ingestão (upload múltiplo e ZIP seguro), extração com marcadores, planilhas, mascaramento, testes | aprovada |
+| 2 | Catálogo em duas camadas (Módulo C), perfis de documento, schemas Pydantic | aguardando validação |
 | 3 | Análise de edital (Módulo A): regime, análise em etapas, verificação de origem, cache, exportação | pendente |
 | 4 | Geração de TR (Módulo B): perfis, espelhamento, ETP, neutralidade, template DOCX | pendente |
 | 5 | Interface Streamlit e README final | pendente |
@@ -97,6 +97,7 @@ Fora do escopo da v1 (mas a arquitetura não pode impedir): habilitação juríd
 │   │   ├── erros.py            # exceções de domínio com mensagem amigável
 │   │   ├── logs.py
 │   │   ├── processos.py        # fachada de serviço do processo
+│   │   ├── yaml_seguro.py      # leitura de YAML sempre com safe_load
 │   │   ├── bd/                 # modelos SQLAlchemy, sessão, repositórios
 │   │   ├── esquemas/           # schemas Pydantic (análise, minuta, catálogo, perfil)
 │   │   ├── ingestao/           # fontes.py (interface), validacao.py, zip_seguro.py,
@@ -163,6 +164,7 @@ Regras invariáveis:
 - **Origem verificável**: toda informação extraída carrega `arquivo`, `pagina` (ou aba e linha), `item_clausula` e `trecho_literal` curto. `verificacao.py` confere se o trecho existe na página citada, normalizando espaços, quebras de linha e hifenização de fim de linha. O que não conferir fica `nao_verificado` e aparece destacado na UI e nas exportações.
 - Cada análise registra versão do prompt, modelo e hashes dos arquivos.
 - Exportação em DOCX e Markdown.
+- Schemas em `core/esquemas/analise.py`: todo campo simples é `CampoExtraido` (valor textual ou nulo, com origem obrigatória quando há valor); itens de lista herdam de `ItemRastreavel` (origem e `origem_substituida`). Todos os schemas usam `extra="forbid"`.
 
 ### Catálogo (Módulo C)
 
@@ -170,11 +172,15 @@ Regras invariáveis:
 - Camada `neutra`: requisitos mínimos funcionais, SLAs praticáveis, textos-padrão de especificação, sem marca nem modelo. Camada `interna`: fabricante, modelo, part number e demais dados internos.
 - O núcleo expõe duas funções distintas: visão completa (Módulo A) e visão neutra (Módulo B). A visão neutra devolve um tipo Pydantic que **não possui** os campos internos, de modo que o vazamento seja impossível por construção.
 - **Teste obrigatório**: nenhum valor da camada interna aparece em nenhum prompt montado pelo Módulo B.
+- O carregamento recusa o item se algum termo interno (fabricante, modelo, part number, `outros_termos_restritos`) aparecer no `nome` ou na camada neutra. A comparação é por palavra inteira, sem acento nem caixa.
+- `Catalogo.termos_internos()` alimenta a busca determinística de neutralidade e nunca vai para prompt.
 - Itens iniciais são fictícios.
 
 ### Geração (Módulo B)
 
 - **Perfil de documento** (YAML em `perfis/`): seções (`id`, `titulo`, `ordem`, `instrucao_redacao`), campos de cabeçalho, texto do aviso, `usa_etp`, `exige_neutralidade`. Um único motor para todos os perfis.
+- Cada seção tem um `papel` (`geral`, `fundamentacao`, `estimativa_valor`, `preenchimento_orgao`) e a opção `inclui_tabela_nms`. É pelo papel, e não pelo id do perfil ou da seção, que o motor decide tratamentos especiais (ETP, preço como lacuna, lacuna do órgão).
+- `regimes_sugeridos` no YAML liga regime a perfil; `sugerir_perfil` só usa o regime **confirmado**.
 - Perfis iniciais: `lei_14133` (dez seções, `usa_etp` e `exige_neutralidade` ligados), `estatal_13303` (base genérica, `exige_neutralidade` ligado, `usa_etp` configurável), `privado` (sem seções próprias de direito público, `usa_etp` desligado).
 - A referência legal de cada estrutura mora no YAML do perfil, não nos prompts.
 - **Espelhamento**: extrai títulos e ordem das seções do documento atual do cliente e propõe um perfil editável antes da geração.
