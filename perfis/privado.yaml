@@ -1,0 +1,39 @@
+id: privado
+nome: Especificação técnica / RFP (cliente privado)
+versao: "1.0"
+descricao: Clientes e entidades privadas. Sem seções próprias de direito público.
+regimes_sugeridos: [privado]
+usa_etp: false
+exige_neutralidade: false
+campos_cabecalho:
+  - {id: orgao, rotulo: Cliente, obrigatorio: true}
+  - {id: numero_processo, rotulo: Referência}
+secoes:
+  - id: objeto
+    ordem: 1
+    titulo: Objeto e escopo
+    instrucao_redacao: >-
+      Descrever o objeto, o escopo, os quantitativos e o prazo, usando somente dados
+      do documento de origem e dos ajustes informados.
+  - id: especificacoes
+    ordem: 2
+    titulo: Especificações técnicas
+    instrucao_redacao: >-
+      Descrever a solução e os requisitos técnicos a partir das especificações
+      fornecidas.
+  - id: execucao
+    ordem: 3
+    titulo: Implantação e operação
+    instrucao_redacao: >-
+      Definir prazos e condições de instalação, ativação, operação e suporte.
+  - id: niveis_servico
+    ordem: 4
+    titulo: Níveis de serviço
+    inclui_tabela_nms: true
+    instrucao_redacao: >-
+      Descrever os níveis de serviço da tabela informada e a forma de apuração.
+  - id: condicoes_comerciais
+    ordem: 5
+    titulo: Condições comerciais
+    papel: estimativa_valor
+    instrucao_redacao: Campo para preenchimento. Nenhum preço é gerado.

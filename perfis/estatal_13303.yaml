@@ -1,0 +1,61 @@
+# Perfil-base genérico. Ajuste as seções ao regulamento interno de licitações de
+# cada empresa, ou use "espelhar documento de origem" para partir do documento atual.
+id: estatal_13303
+nome: Termo de Referência para empresa estatal (Lei 13.303/2016)
+versao: "1.0"
+descricao: Empresas públicas e sociedades de economia mista. Base a ajustar ao regulamento interno.
+regimes_sugeridos: [lei_13303]
+referencia_normativa: Lei 13.303/2016 e regulamento interno de licitações e contratos da empresa
+usa_etp: false
+exige_neutralidade: true
+campos_cabecalho:
+  - {id: orgao, rotulo: Empresa, obrigatorio: true}
+  - {id: numero_processo, rotulo: Processo nº}
+secoes:
+  - id: objeto
+    ordem: 1
+    titulo: Objeto
+    instrucao_redacao: >-
+      Descrever o objeto, os quantitativos e o prazo, usando somente dados do
+      documento de origem e dos ajustes informados.
+  - id: fundamentacao
+    ordem: 2
+    titulo: Justificativa da contratação
+    papel: fundamentacao
+    instrucao_redacao: >-
+      Referenciar o estudo ou documento interno que fundamenta a contratação, se
+      informado. Não redigir justificativa própria.
+  - id: especificacoes
+    ordem: 3
+    titulo: Especificações técnicas
+    instrucao_redacao: >-
+      Descrever a solução e listar os requisitos técnicos como mínimos funcionais,
+      sem marca, modelo ou característica exclusiva de fornecedor.
+  - id: execucao
+    ordem: 4
+    titulo: Condições de execução
+    instrucao_redacao: >-
+      Definir prazos e condições de instalação, ativação, operação e suporte.
+  - id: niveis_servico
+    ordem: 5
+    titulo: Níveis de serviço e fiscalização
+    inclui_tabela_nms: true
+    instrucao_redacao: >-
+      Descrever o acompanhamento da execução e os níveis mínimos de serviço da
+      tabela informada.
+  - id: medicao_pagamento
+    ordem: 6
+    titulo: Medição e pagamento
+    instrucao_redacao: >-
+      Descrever os critérios de medição e pagamento e a aplicação de glosas. Não
+      incluir valores monetários.
+  - id: qualificacao_tecnica
+    ordem: 7
+    titulo: Qualificação técnica
+    instrucao_redacao: >-
+      Indicar os requisitos de qualificação técnica pertinentes ao objeto.
+  - id: estimativa_valor
+    ordem: 8
+    titulo: Valor estimado
+    papel: estimativa_valor
+    instrucao_redacao: Campo para preenchimento pela empresa. Nenhum valor é gerado.

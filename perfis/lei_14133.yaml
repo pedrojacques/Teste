@@ -1,0 +1,73 @@
+id: lei_14133
+nome: Termo de Referência (Lei 14.133/2021)
+versao: "1.0"
+descricao: Administração direta, autárquica e fundacional.
+regimes_sugeridos: [lei_14133]
+referencia_normativa: Lei 14.133/2021, art. 6º, XXIII
+usa_etp: true
+exige_neutralidade: true
+campos_cabecalho:
+  - {id: orgao, rotulo: Órgão, obrigatorio: true}
+  - {id: numero_processo, rotulo: Processo nº}
+secoes:
+  - id: objeto
+    ordem: 1
+    titulo: Definição do objeto, quantitativos e prazo
+    instrucao_redacao: >-
+      Descrever o objeto, sua natureza, os quantitativos e o prazo do contrato,
+      indicando, se for o caso, a possibilidade de prorrogação. Usar somente
+      quantitativos presentes no documento de origem e nos ajustes informados.
+  - id: fundamentacao
+    ordem: 2
+    titulo: Fundamentação da contratação
+    papel: fundamentacao
+    instrucao_redacao: >-
+      Referenciar o Estudo Técnico Preliminar informado. Não redigir justificativa
+      própria da necessidade da contratação.
+  - id: solucao
+    ordem: 3
+    titulo: Descrição da solução como um todo
+    instrucao_redacao: >-
+      Descrever a solução considerando todo o ciclo de vida do objeto, em termos
+      funcionais, a partir das especificações neutras fornecidas.
+  - id: requisitos
+    ordem: 4
+    titulo: Requisitos da contratação
+    instrucao_redacao: >-
+      Listar os requisitos técnicos como mínimos funcionais ("no mínimo", "igual ou
+      superior"), sem marca, modelo ou característica exclusiva de fornecedor.
+  - id: execucao
+    ordem: 5
+    titulo: Modelo de execução do objeto
+    instrucao_redacao: >-
+      Definir como o contrato deverá produzir os resultados pretendidos, do início
+      ao encerramento: instalação, ativação, operação e suporte.
+  - id: gestao
+    ordem: 6
+    titulo: Modelo de gestão do contrato
+    inclui_tabela_nms: true
+    instrucao_redacao: >-
+      Descrever como a execução será acompanhada e fiscalizada, incluindo os níveis
+      mínimos de serviço da tabela informada.
+  - id: medicao_pagamento
+    ordem: 7
+    titulo: Critérios de medição e pagamento
+    instrucao_redacao: >-
+      Descrever os critérios de medição e de pagamento e a aplicação das glosas da
+      tabela de níveis de serviço. Não incluir valores monetários.
+  - id: selecao_fornecedor
+    ordem: 8
+    titulo: Forma e critérios de seleção do fornecedor
+    instrucao_redacao: >-
+      Indicar os requisitos de qualificação técnica pertinentes ao objeto. Deixar
+      como lacuna a modalidade e o critério de julgamento, que cabem ao órgão.
+  - id: estimativa_valor
+    ordem: 9
+    titulo: Estimativas do valor da contratação
+    papel: estimativa_valor
+    instrucao_redacao: Campo para preenchimento pelo órgão. Nenhum valor é gerado.
+  - id: adequacao_orcamentaria
+    ordem: 10
+    titulo: Adequação orçamentária
+    papel: preenchimento_orgao
+    instrucao_redacao: Campo para preenchimento pelo órgão com a dotação orçamentária.
