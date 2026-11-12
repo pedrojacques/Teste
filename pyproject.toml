@@ -1,0 +1,51 @@
+[project]
+name = "editallab"
+version = "0.1.0"
+description = "Análise de editais e geração de Termos de Referência com apoio de IA."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "alembic>=1.13",
+    "openpyxl>=3.1",
+    "pillow>=10.0",
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+    "pymupdf>=1.24",
+    "pytesseract>=0.3.10",
+    "python-docx>=1.1",
+    "sqlalchemy>=2.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["editallab"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not integracao and not ocr'"
+markers = [
+    "integracao: testes que chamam a API real (exigem ANTHROPIC_API_KEY e geram custo)",
+    "ocr: testes que dependem do binário Tesseract instalado",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S", "D"]
+ignore = ["D203", "D213", "D100", "D104", "D107", "D401"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "D", "S105", "S106"]
+"scripts/**" = ["D103", "E501"]
+"migracoes/**" = ["D"]
